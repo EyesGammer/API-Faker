@@ -1,0 +1,91 @@
+{
+    "routes": {
+        "/": {
+            "POST": {
+                "message": "Fake API Carburant (by POST)"
+            },
+            "GET": {
+                "message": "Fake API Carburant (by GET)"
+            },
+            "/stations/gas": {
+                "GET": {
+                    "id": "int:c",
+                    "cp": "int:4",
+                    "adresse": "string:lorem",
+                    "geom": {
+                        "lon": "gps:lon",
+                        "lat": "gps:lat"
+                    }
+                },
+                "/(\\d+)": {
+                    "GET": {
+                        "type": "essence",
+                        "autre": "args:1",
+                        "temps_exec": "args:2"
+                    }
+                }
+            }
+        },
+        "/exemple/shop": {
+            "GET": {
+                "nom": "string:5",
+                "prix": "double",
+                "description": "string:lorem",
+                "localisation": {
+                    "longitude": "gps:lon",
+                    "latitude": "gps:lat"
+                }
+            },
+            "POST": {
+                "id": "int:c",
+                "random_id": "int:10",
+                "prix": "double",
+                "slug": "string:4"
+            }
+        }
+    },
+    "rules": {
+        "global": {
+            "GET": {
+                "delay": 2000,
+                "headers": [
+                    "Authorization: Basic AUTRE TEST"
+                ],
+                "code": 250
+            }
+        },
+        "/": {
+            "POST": {
+                "type": "array",
+                "count": 2
+            },
+            "GET": {
+                "type": "unit"
+            },
+            "/stations/gas": {
+                "GET": {
+                    "type": "array",
+                    "count": "15",
+                    "headers": [
+                        "Authorization: Basic COUCOU"
+                    ],
+                    "code": 404
+                },
+                "/(\\d+)": {
+                    "GET": {
+                        "type": "array",
+                        "count": 4,
+                        "delay": 1000,
+                        "code": "302"
+                    }
+                }
+            },
+            "/exemple/shop": {
+                "POST": {
+                    "type": "array",
+                    "count": "10"
+                }
+            }
+        }
+    }
+}
